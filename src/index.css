@@ -3,3 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding: 5% 15%;
+  justify-content: center
+}
+
+label {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+label input {
+  margin-left: 15px;
+}
