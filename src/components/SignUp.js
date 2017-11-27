@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { login } from '../services/auth';
-import '../index';
+import '../index.css';
+import { signUp } from '../services/auth';
 
 const styles = {
     form: {
@@ -30,22 +30,16 @@ const styles = {
     }
 };
 
-export default class Login extends Component {
+export default class SignUp extends Component {
     constructor(){
         super();
         this.state = {
+            name: '',
             email: '',
             password: ''
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    async handleSubmit(event) {
-        event.preventDefault();
-        const res = await login(this.state);
-        localStorage.setItem('user', JSON.stringify(res.data));
-        this.props.history.push('/timeline');
     }
 
     onChange(key, event) {
@@ -54,31 +48,51 @@ export default class Login extends Component {
         });
     }
 
+    async handleSubmit(event) {
+        event.preventDefault();
+        await signUp(this.state);
+        this.props.history.push('/');
+    }
+
     render() {
         return (
             <div className="container">
                 <form style={styles.form} onSubmit={this.handleSubmit}>
-                    <h2 style={styles.center}>Entrar</h2>
+                    <h2 style={styles.center}>Cadastro</h2>
                     <label>
-                        <span>E-mail</span>
+                        <span>Nome de usuario:</span>
                         <input 
-                            value={this.state.email}
-                            onChange={this.onChange.bind(this, 'email')}
-                            type="text" 
-                            placeholder="example@example.com"
+                            type="text"
+                            value={this.state.name}
+                            onChange={this.onChange.bind(this, 'name')}
+                            placeholder="Demogorgon"
                         />
                     </label>
                     <label>
-                        <span>Senha</span>
+                        <span>E-mail:</span>
                         <input 
+                            type="email"
+                            value={this.state.email}
+                            onChange={this.onChange.bind(this, 'email')}
+                            placeholder="stranger@things.com"
+                        />
+                    </label>
+                    <label>
+                        <span>Senha:</span>
+                        <input 
+                            type="password"
                             value={this.state.password}
                             onChange={this.onChange.bind(this, 'password')}
-                            type="password" 
                             placeholder="*****"
                         />
                     </label>
-                    <button style={styles.submit} type="submit">Entrar</button>
-                </form>
+                    <button
+                        type="submit"
+                        style={styles.submit}
+                    >
+                        Cadastrar
+                    </button>
+                </form> 
             </div>
         );
     }

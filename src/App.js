@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import Name from './Name';
-import Login from './components/Login';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import Routes from './components/Routes';
+
+const history = createBrowserHistory();
 
 class App extends Component {
-
   render() {
     return (
       <div>
-        <Login />
+        <Router history={history}>
+          <Routes />
+        </Router>
       </div>
     );
   }
